@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine sources/sources.json (contract 3)",
+  "description": "Excerpts live in sources/excerpts/<id>.txt. verified is set only by a human reviewer.",
+  "type": "array",
+  "maxItems": 2000,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$",
+      "patternMessage": "شناسه باید انگلیسی، بدون فاصله و حداکثر ۸۰ نویسه باشد."
+    }
+  },
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "title"
+    ],
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S",
+        "maxLength": 1000
+      },
+      "creator": {
+        "type": "string",
+        "maxLength": 1000,
+        "default": ""
+      },
+      "year": {
+        "type": "string",
+        "maxLength": 100,
+        "default": ""
+      },
+      "locator": {
+        "type": "string",
+        "maxLength": 1000,
+        "default": ""
+      },
+      "url": {
+        "type": "string",
+        "maxLength": 1000,
+        "pattern": "^(?:https?://\\S+)?$",
+        "patternMessage": "نشانی منبع فقط http یا https است.",
+        "default": ""
+      },
+      "verified": {
+        "type": "boolean",
+        "default": false
+      },
+      "verifiedBy": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "verifiedAt": {
+        "type": "string",
+        "maxLength": 40
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine style.yaml (contract 3)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tone": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "readingLevel": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "rules": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S",
+        "maxLength": 2000
+      }
+    }
+  }
+}

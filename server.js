@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
   if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); res.end(); return; }
   let pathname;
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch (_) { res.writeHead(400); res.end(); return; }
-  if (pathname === '/health') { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ product: 'BookEngine', version: '0.1.0' })); return; }
+  if (pathname === '/health') { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ product: 'BookEngine', version: require('./src/v3/index.js').VERSION })); return; }
   if (pathname.includes('\0')) { res.writeHead(400); res.end(); return; }
   const target = path.resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
   if (!target.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }

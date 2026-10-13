@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine memory/workflow.yaml (contract 3)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "completed": {
+      "type": "array",
+      "maxItems": 18,
+      "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 18
+      },
+      "default": []
+    },
+    "notes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 30000
+      },
+      "default": {}
+    }
+  }
+}
