@@ -1,0 +1,13 @@
+chapters:
+  - id: chapter-reader
+    file: chapters/01-chapter-reader.md
+    status: drafted
+  - id: chapter-outline
+    file: chapters/02-chapter-outline.md
+    status: drafted
+  - id: chapter-review
+    file: chapters/03-chapter-review.md
+    status: drafted
+  - id: chapter-references
+    file: chapters/04-chapter-references.md
+    status: drafted

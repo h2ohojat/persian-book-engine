@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine fiche (one line of fiches/fiches.jsonl, contract 3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "text"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$",
+      "patternMessage": "شناسه باید انگلیسی، بدون فاصله و حداکثر ۸۰ نویسه باشد."
+    }
+  },
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "kind": {
+      "enum": [
+        "quote",
+        "summary",
+        "author"
+      ]
+    },
+    "sourceId": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "maxLength": 30000
+    },
+    "locator": {
+      "type": "string",
+      "maxLength": 1000,
+      "default": ""
+    },
+    "keywords": {
+      "type": "string",
+      "maxLength": 1000,
+      "default": ""
+    }
+  }
+}

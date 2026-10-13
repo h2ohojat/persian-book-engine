@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine chapter frontmatter (contract 3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$",
+      "patternMessage": "شناسه باید انگلیسی، بدون فاصله و حداکثر ۸۰ نویسه باشد."
+    }
+  },
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "maxLength": 500
+    },
+    "objectives": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S",
+        "maxLength": 2000
+      },
+      "default": []
+    },
+    "fiches": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "default": []
+    }
+  }
+}

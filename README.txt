@@ -1,4 +1,31 @@
-موتور تولید کتاب فارسی - نسخه آزمایشی ۰.۲
+موتور تولید کتاب فارسی - نسخه آزمایشی ۰.۳
+
+تازه‌های نسخهٔ ۰.۳: پوشهٔ پروژه برای کتاب بلند
+هر کتاب یک پوشه است: book.yaml، outline.yaml، هر فصل یک فایل Markdown در chapters/،
+منابع در sources/، فیش‌ها در fiches/fiches.jsonl و حافظهٔ کتاب (واژه‌نامه، خلاصهٔ فصل‌ها) در memory/.
+فصل‌ها بخش (part)، زیربخش تودرتو، جدول، پانویس، اصطلاح واژه‌نامه، ارجاع درون‌متنی و ارجاع متقابل دارند.
+اعتبارسنجی از schemaهای src/v3/schemas انجام می‌شود و هر خطا کد، فایل، شمارهٔ خط و پیشنهاد اصلاح دارد.
+build افزایشی است و فقط فصل‌های تغییرکرده را دوباره رندر می‌کند.
+context برای نوشتن یک فصل، بسته‌ای با اندازهٔ محدود می‌سازد که به تعداد فصل‌ها بستگی ندارد.
+کتاب‌های BOOK.json نسخهٔ ۰.۲ با import به پوشهٔ پروژه و با export دوباره به BOOK.json تبدیل می‌شوند.
+
+node bookengine.js new books/my-book --title "عنوان"
+node bookengine.js import books/ai-test/BOOK.json books/my-book
+node bookengine.js add-chapter books/my-book --id basics --title "مفاهیم پایه"
+node bookengine.js context books/my-book --chapter basics --out context.txt
+node bookengine.js validate books/my-book [--chapter basics] [--json]
+node bookengine.js ids books/my-book --write
+node bookengine.js build books/my-book
+node bookengine.js outline books/my-book
+node bookengine.js export books/my-book BOOK.json
+
+راهنمای تألیف ۰.۳: docs/AUTHORING-v0.3.fa.md
+سند طراحی: docs/DESIGN-v0.3.fa.md
+نمونهٔ مهاجرت‌یافته با یک فصل تازه: books/ai-test-v3
+book-cli.js، رابط index.html و بستهٔ ai-kit همچنان با BOOK.json نسخهٔ ۰.۲ کار می‌کنند.
+
+---------------------------------------------------------------
+راهنمای نسخهٔ ۰.۲ (همچنان معتبر برای BOOK.json)
 
 دادن موتور به هوش مصنوعی
 بخش «بستهٔ هوش مصنوعی» در برنامه را باز کنید.
@@ -67,8 +94,10 @@ book-cli.js: ابزار ساخت، بررسی، قالب تک‌فایلی و ا
 src/app.js و src/app.css: رابط فارسی.
 data/sample-book.json: نمونه قابل ویرایش؛ محتوای تألیفی آزمایشی، فاقد ادعای پژوهشی بیرونی.
 data/workflow.js: مسیر آموزشی استخراج‌شده از فایل مبنا.
-reference/authoring-academy.html: کپی فایل آموزشی اصلی، بدون تغییر.
-tests/engine.test.js: آزمون‌های هسته.
+tests/engine.test.js و tests/sdk.test.js: آزمون‌های هسته و SDK.
+tests/v3.test.js: آزمون‌های قالب پروژهٔ ۰.۳.
+src/v3/: پیاده‌سازی ۰.۳ (YAML، schema، parser، رجیستری بلوک، اعتبارسنجی، رندر، context، مهاجرت).
+bookengine.js: ابزار خط فرمان ۰.۳.
 exports/: نمونه خروجی کتاب.
 build.js: ساخت کتاب HTML از یک پروژه JSON.
 server.js: سرور محلی اختیاری روی 127.0.0.1:8797؛ برای اجرای برنامه الزامی نیست.

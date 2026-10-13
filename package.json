@@ -1,10 +1,11 @@
 {
   "name": "book-engine",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "Offline Persian book authoring and rendering prototype",
-  "main": "src/engine.js",
+  "description": "Offline Persian book engine with AI-facing data contracts and a scalable project-folder format",
+  "main": "src/v3/index.js",
   "scripts": {
+    "validate:v3": "node bookengine.js validate books/ai-test-v3",
     "test": "node --test tests/*.test.js",
     "start": "node server.js",
     "build": "node build.js",
@@ -12,6 +13,17 @@
     "validate:book": "node book-cli.js validate examples/BOOK-three-chapters.json",
     "test:browser": "node tests/browser-smoke.js"
   },
-  "engines": { "node": ">=18" },
-  "license": "MIT"
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "bin": {
+    "bookengine": "bookengine.js"
+  },
+  "exports": {
+    ".": "./src/v3/index.js",
+    "./v1": "./src/engine.js",
+    "./sdk": "./src/sdk.js",
+    "./package.json": "./package.json"
+  }
 }

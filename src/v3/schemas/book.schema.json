@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine project book.yaml (contract 3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bookEngine",
+    "id",
+    "title"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$",
+      "patternMessage": "شناسه باید انگلیسی، بدون فاصله و حداکثر ۸۰ نویسه باشد."
+    }
+  },
+  "properties": {
+    "bookEngine": {
+      "const": 3
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "maxLength": 500
+    },
+    "subtitle": {
+      "type": "string",
+      "maxLength": 500,
+      "default": ""
+    },
+    "authors": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S",
+        "maxLength": 500
+      },
+      "default": []
+    },
+    "audience": {
+      "type": "string",
+      "maxLength": 500,
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 10000,
+      "default": ""
+    },
+    "format": {
+      "enum": [
+        "textbook",
+        "workbook",
+        "trainer"
+      ],
+      "default": "textbook"
+    },
+    "language": {
+      "const": "fa",
+      "default": "fa"
+    },
+    "direction": {
+      "const": "rtl",
+      "default": "rtl"
+    },
+    "versionLabel": {
+      "type": "string",
+      "maxLength": 500,
+      "default": "۰.۱"
+    },
+    "targets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wordsPerChapter": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        }
+      }
+    }
+  }
+}

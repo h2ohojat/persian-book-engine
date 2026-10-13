@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BookEngine outline.yaml (contract 3)",
+  "description": "Either parts (each with chapters) or a flat chapters list, not both.",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$",
+      "patternMessage": "شناسه باید انگلیسی، بدون فاصله و حداکثر ۸۰ نویسه باشد."
+    },
+    "chapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "file"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "file": {
+          "type": "string",
+          "pattern": "^chapters/[A-Za-z0-9][A-Za-z0-9_.-]{0,120}\\.md$",
+          "patternMessage": "فایل فصل باید در پوشهٔ chapters و با پسوند .md باشد."
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "drafted",
+            "in-review",
+            "approved"
+          ],
+          "default": "drafted"
+        },
+        "approvedBy": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "approvedAt": {
+          "type": "string",
+          "maxLength": 40
+        }
+      }
+    },
+    "part": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "chapters"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 500
+        },
+        "chapters": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 200,
+          "items": {
+            "$ref": "#/$defs/chapter"
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "parts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "$ref": "#/$defs/part"
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 500,
+      "items": {
+        "$ref": "#/$defs/chapter"
+      }
+    }
+  }
+}

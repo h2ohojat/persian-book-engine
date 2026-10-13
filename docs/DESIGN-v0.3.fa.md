@@ -201,7 +201,7 @@ fiches: [fiche-007, fiche-012]
 2. **ارجاع‌ها (resolver):** یکتایی شناسه در کل کتاب، وجود مقصد `cite`، `xref`، `term`، فیش‌های frontmatter و فایل‌های outline.
 3. **قواعد محتوایی (هشدار):** همان موارد فعلی `inspect` — منبع تأییدنشده، نقل‌قول نامنطبق با گزیده، متن جایگزین. این لایه پایهٔ lint نسخهٔ ۰.۶ است.
 
-**انتخاب ابزار:** برای حفظ هستهٔ بدون وابستگی، validator هنگام build با Ajv از schema کامپایل و به‌صورت یک فایل JS بدون وابستگی ذخیره می‌شود (Ajv standalone). پس Ajv فقط devDependency است. typeهای TypeScript (`.d.ts`) هم از همان schema تولید می‌شوند.
+**انتخاب ابزار (پیاده‌شده):** برای حفظ هستهٔ بدون وابستگی، یک validator کوچک داخلی (`src/v3/schema.js`) زیرمجموعهٔ لازم JSON Schema را مستقیماً از فایل‌های `src/v3/schemas/*.schema.json` اجرا می‌کند. Ajv و تولید `.d.ts` کنار گذاشته شد تا پروژه همچنان هیچ وابستگی npm نداشته باشد.
 
 **شکل خطا:** هر مورد یک شیء ماشین‌خوان است تا AI بتواند بدون حدس اصلاحش کند:
 
@@ -283,7 +283,7 @@ const ctx     = await buildChapterContext(project, 'basics', { budgetTokens: 300
 | `chapter.objectives`، `fichIds` | frontmatter فصل (`objectives`، `fiches`) |
 | بلوک `paragraph` / `heading` / `list` | Markdown استاندارد با `{#id}` |
 | بلوک `callout` / `quote` / `exercise` | directive `:::` با همان شناسه و ویژگی‌ها |
-| `block.sourceId` + `locator` روی paragraph | ارجاع `[@id; locator]` در انتهای بلوک |
+| `block.sourceId` + `locator` روی paragraph، list یا heading | سطر ویژگی `{#id source=… locator="…"}` پیش از بلوک (رفت‌وبرگشت دقیق‌تر از ارجاع درون‌متنی) |
 | `workflow` (یادداشت‌های مسیر در پروژهٔ کارگاه) | `memory/workflow.yaml` |
 
 **ضمانت‌ها:**
@@ -318,12 +318,15 @@ const ctx     = await buildChapterContext(project, 'basics', { budgetTokens: 300
 5. **مهاجرت و CLI:** `import` / `export` و دستورهای پروژه‌محور، cache و build افزایشی.
 6. **مستندات AI:** به‌روزرسانی `AGENTS.md`، راهنمای تألیف و بستهٔ ai-kit از روی رجیستری، و آزمون نهایی با یک عامل AI.
 
-**تصمیم‌های باز (نیاز به تصمیم مالک پروژه):**
+**تصمیم‌های گرفته‌شده در پیاده‌سازی ۰.۳:**
 
-| موضوع | گزینهٔ پیشنهادی | جایگزین |
+| موضوع | تصمیم | دلیل |
 | --- | --- | --- |
-| زبان پیاده‌سازی | TypeScript با خروجی JS بدون وابستگی | ادامهٔ JS خالص + JSDoc |
-| parser Markdown | یک parser کوچک اختصاصی برای زیرمجموعهٔ محدود بالا | unified/remark (کامل‌تر، اما با وابستگی) |
-| ساختار مخزن | یک بسته با پوشه‌های جدا در ۰.۳ | monorepo چندبسته‌ای از ابتدا |
-| YAML | زیرمجموعهٔ ایمن با parser داخلی | همهٔ فراداده JSON (ساده‌تر، ناخواناتر) |
-| محل نگهداری گزیدهٔ منبع | فایل txt جدا برای هر منبع | داخل `sources.json` مثل v1 |
+| زبان پیاده‌سازی | JavaScript خالص (CommonJS) | سازگار با کد ۰.۲، بدون مرحلهٔ build و بدون وابستگی |
+| parser Markdown | parser کوچک اختصاصی (`src/v3/markdown.js`) | فقط زیرمجموعهٔ تعریف‌شده؛ HTML خام هرگز تفسیر نمی‌شود |
+| ساختار مخزن | یک بسته؛ کد ۰.۳ در `src/v3/` | monorepo برای نسخه‌های بعد |
+| YAML | زیرمجموعهٔ ایمن با parser داخلی (`src/v3/yaml.js`) | بدون tag، anchor و alias |
+| گزیدهٔ منبع | فایل txt جدا برای هر منبع | فایل منابع کوچک و diff خوانا می‌ماند |
+| validator | validator داخلی برای زیرمجموعهٔ JSON Schema | به‌جای Ajv، برای حفظ صفر وابستگی |
+
+**آنچه به نسخه‌های بعد ماند:** type‌های TypeScript، بازسازی خودکار قالب editable نسخهٔ ۰.۲ پس از تغییر موتور، plugin بلوک از پوشهٔ کتاب، فهرست‌های تودرتو، استخراج پروژهٔ ۰.۳ از HTML خروجی.
