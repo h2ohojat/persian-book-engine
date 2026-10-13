@@ -1,0 +1,17 @@
+{
+  "name": "book-engine",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Offline Persian book authoring and rendering prototype",
+  "main": "src/engine.js",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "node server.js",
+    "build": "node build.js",
+    "kit": "node tools/kit-builder.js",
+    "validate:book": "node book-cli.js validate examples/BOOK-three-chapters.json",
+    "test:browser": "node tests/browser-smoke.js"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

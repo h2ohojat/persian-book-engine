@@ -1,0 +1,6 @@
+node_modules/
+backups/
+reference/authoring-academy.html
+.bookengine/
+dist/
+*.log

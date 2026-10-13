@@ -1,0 +1,30 @@
+{
+  "product": "BookEngine",
+  "engineVersion": "0.2.0",
+  "contractVersion": 1,
+  "formats": [
+    "textbook",
+    "workbook",
+    "trainer"
+  ],
+  "blockTypes": [
+    "paragraph",
+    "heading",
+    "callout",
+    "exercise",
+    "quote",
+    "list"
+  ],
+  "sha256": {
+    "src/engine.js": "c41f4d27d3d6eadfc903e1a459b27e79b0ec61d56ca086a88a866ea569e9017d",
+    "src/sdk.js": "229d0f582a7110284f2d1c121176ee095c9d4ca3d665a4ecdd79ee66b1494d42",
+    "ai-kit/BOOK.schema.json": "68f081113d22ab5d3ba76bd809d98ad8a128b7a4f4016325d99263490782e3d7"
+  },
+  "files": [
+    "01-ai-kit.html",
+    "book-template.html",
+    "BOOK-starter.json",
+    "BOOK.schema.json",
+    "AUTHORING-GUIDE.fa.txt"
+  ]
+}

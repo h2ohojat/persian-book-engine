@@ -1,0 +1,11 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const engine = require('./src/engine.js');
+const sdk = require('./src/sdk.js');
+const input = process.argv[2] || path.join(__dirname, 'data', 'sample-book.json');
+const output = process.argv[3] || path.join(__dirname, 'exports', 'sample-book.html');
+const project = sdk.parseInput(fs.readFileSync(input, 'utf8'));
+fs.mkdirSync(path.dirname(output), { recursive: true });
+fs.writeFileSync(output, engine.renderBook(project), 'utf8');
+console.log(JSON.stringify({ output, stats: engine.review(project) }, null, 2));

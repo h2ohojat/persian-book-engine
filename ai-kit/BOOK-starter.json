@@ -1,0 +1,30 @@
+{
+  "bookSpecVersion": 1,
+  "id": "book-new",
+  "metadata": {
+    "title": "کتاب تازه",
+    "subtitle": "",
+    "author": "",
+    "audience": "مخاطب کتاب را مشخص کنید",
+    "description": "هدف کتاب را مشخص کنید",
+    "format": "textbook",
+    "versionLabel": "۰.۱"
+  },
+  "sources": [],
+  "fiches": [],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "عنوان فصل",
+      "objectives": [],
+      "fichIds": [],
+      "blocks": [
+        {
+          "id": "chapter-1-intro",
+          "type": "paragraph",
+          "text": "متن فصل را اینجا بنویسید"
+        }
+      ]
+    }
+  ]
+}

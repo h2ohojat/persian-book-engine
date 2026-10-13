@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>کارگاه کتاب‌سازی | BookEngine</title>
+  <link rel="stylesheet" href="src/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brandMark" aria-hidden="true">ب</span><div><strong>کارگاه کتاب‌سازی</strong><small>موتور کتاب · نسخه آزمایشی ۰.۲</small></div></div>
+    <div class="topActions"><span id="saveStatus" class="saveStatus" role="status">آماده</span><button data-action="backup" class="button quiet">پشتیبان پروژه ↓</button><button data-action="export" class="button primary">خروجی کتاب ↗</button></div>
+  </header>
+  <div class="appShell">
+    <aside class="sidebar">
+      <div class="sidebarLabel">پروژه جاری</div><h1 id="sidebarTitle">کتاب تازه</h1><span id="formatBadge" class="tag"></span>
+      <nav aria-label="بخش‌های پروژه">
+        <button data-view="metadata" class="navButton active"><span>۰۱</span>شناسنامه کتاب</button>
+        <button data-view="sources" class="navButton"><span>۰۲</span>منابع و فیش‌ها</button>
+        <button data-view="chapters" class="navButton"><span>۰۳</span>فصل‌ها و محتوا</button>
+        <button data-view="workflow" class="navButton"><span>۰۴</span>مسیر تألیف</button>
+        <button data-view="preview" class="navButton"><span>۰۵</span>پیش‌نمایش و خروجی</button>
+        <button data-view="ai" class="navButton"><span>۰۶</span>بستهٔ هوش مصنوعی</button>
+      </nav>
+      <div class="sidebarTools"><button data-action="new" class="button quiet">+ کتاب تازه</button><button data-action="sample" class="button quiet">باز کردن نمونه سه‌فصلی</button><button data-action="import" class="button quiet">بازیابی پروژه ↑</button></div>
+      <div class="localNotice">نوشته‌ها در همین مرورگر ذخیره می‌شوند. برای انتقال یا نگهداری، پشتیبان پروژه را دریافت کنید.</div>
+    </aside>
+    <main>
+      <div class="workspaceIntro"><div><span class="eyebrow">از منبع تا فصل، از فصل تا کتاب</span><h2 id="viewTitle">شناسنامه کتاب</h2><p id="viewDescription">یک کتاب مستقل بسازید؛ با منابع، تمرین و خروجی قابل مطالعه.</p></div><div id="progressPill" class="progressPill"></div></div>
+      <section class="stats" aria-label="مشخصات پروژه"><div><strong id="statChapters">۰</strong><span>فصل</span></div><div><strong id="statWords">۰</strong><span>واژه در متن</span></div><div><strong id="statFiches">۰</strong><span>فیش مرتبط</span></div><div><strong id="statWarnings">۰</strong><span>مورد بازبینی</span></div></section>
+      <div id="view"></div>
+    </main>
+  </div>
+  <input id="projectFile" type="file" accept=".json,.html,application/json,text/html" hidden aria-label="انتخاب فایل کتاب یا پروژه">
+  <dialog id="promptDialog"><div class="dialogHead"><div><span class="eyebrow">دستیار نگارش</span><h2>پرامپت و پیش‌نویس فصل</h2></div><button data-action="close-dialog" class="button quiet" aria-label="بستن">×</button></div><p>پرامپت را به ابزار انتخابی خود بدهید. پاسخ JSON را پس از بررسی، اینجا وارد کنید. این نسخه به سرویس AI متصل نیست.</p><label for="chapterPrompt">پرامپت آماده برای فصل</label><textarea id="chapterPrompt" rows="10" readonly></textarea><button data-action="copy-prompt" class="button quiet">کپی پرامپت</button><label for="draftInput">پاسخ JSON ابزار یا پیش‌نویس خودتان</label><textarea id="draftInput" rows="6" dir="ltr" placeholder='{"blocks":[{"type":"paragraph","text":"متن فصل"}]}'></textarea><div id="draftError" class="formError" role="alert"></div><button data-action="apply-draft" class="button primary">بررسی و جایگزینی محتوای فصل</button></dialog>
+  <dialog id="bookImportDialog"><div class="dialogHead"><div><span class="eyebrow">کتاب تولیدشده با AI</span><h2>ورود کل کتاب</h2></div><button data-action="close-book-dialog" class="button quiet" aria-label="بستن">×</button></div><p>دادهٔ BOOK.json یا کد HTML قالب BookEngine را وارد کنید. داده قبل از جایگزینی بررسی می‌شود؛ کد HTML ورودی اجرا نمی‌شود.</p><label for="bookInput">خروجی کامل هوش مصنوعی</label><textarea id="bookInput" rows="14" dir="ltr" maxlength="5000000"></textarea><div id="bookImportError" class="formError" role="alert"></div><button data-action="apply-book" class="button primary">بررسی و ورود کتاب</button><button data-action="import" class="button quiet">انتخاب فایل</button></dialog>
+  <div id="notice" class="notice" role="status" aria-live="polite"></div>
+  <script src="src/engine.js"></script>
+  <script src="src/sdk.js"></script>
+  <script src="data/sample.js"></script>
+  <script src="data/workflow.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
